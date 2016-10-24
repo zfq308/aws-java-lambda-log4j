@@ -1,11 +1,17 @@
 package au.com.vodafone;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
 public class LambdaLogger {
     private APIRequest apiRequest;
     private Context context;
+    private Logger logger = Logger.getLogger(LambdaLogger.class);
+
+    public LambdaLogger(Logger logger) {
+        this.logger = logger;
+    }
 
     public APIRequest getApiRequest() {
         return apiRequest;
@@ -31,6 +37,8 @@ public class LambdaLogger {
             MDC.put("SessionId", apiRequest.getSessionId() == null ? " " : apiRequest.getSessionId());
             MDC.put("FunctionName", context.getFunctionName() == null ? " " : context.getFunctionName());
             MDC.put("FunctionVersion", context.getFunctionVersion() == null ? " " : context.getFunctionVersion());
+        } else {
+            logger.error("apiRequest is null");
         }
     }
 }
