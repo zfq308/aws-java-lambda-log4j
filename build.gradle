@@ -8,7 +8,8 @@ repositories {
 dependencies {
     compile(
         "com.amazonaws:aws-lambda-java-core:1.1.0",
-        "com.amazonaws:aws-lambda-java-log4j:1.0.0"
+        "com.amazonaws:aws-lambda-java-log4j:1.0.0",
+        "org.apache.commons:commons-lang3:3.4"
     )
     testCompile(
         "junit:junit:4.11",

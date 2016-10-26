@@ -60,9 +60,9 @@ public class LambdaLoggerTest {
 
     @Test
     public void should_update_session_id_when_session_id_is_not_null() throws Exception {
-        apiRequest.setSessionId("TEST_SESSION_ID");
+        apiRequest.setSessionId("ABCDEFGH");
         lambdaLogger.updateMDC(apiRequest, context);
-        assertEquals("TEST_SESSION_ID", MDC.get("SessionId"));
+        assertEquals("ABCDEFGH", MDC.get("SessionId"));
     }
 
     @Test
