@@ -1,6 +1,6 @@
 package au.com.vodafone;
 
-public class APIRequest{
+public class APIRequest {
     private String apiId;
     private String resourceId;
     private String stage;
