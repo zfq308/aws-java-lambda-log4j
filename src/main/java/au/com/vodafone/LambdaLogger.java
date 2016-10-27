@@ -1,7 +1,6 @@
 package au.com.vodafone;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
@@ -11,6 +10,7 @@ public class LambdaLogger {
     private Logger logger = Logger.getLogger(LambdaLogger.class);
 
     final static String NULL_STRING = "Null";
+    final static String EMPTY_STRING = "";
 
     public LambdaLogger(Logger logger) {
         this.logger = logger;
@@ -46,7 +46,7 @@ public class LambdaLogger {
     }
 
     private String checkRequestApiId(String apiId) {
-        if(apiId != null) {
+        if(apiId != null && !apiId.equals(EMPTY_STRING)) {
             return apiId;
         } else {
             logger.error("ApiId is null");
@@ -55,7 +55,7 @@ public class LambdaLogger {
     }
 
     private String checkRequestResourceId(String resourceId) {
-        if(resourceId != null) {
+        if(resourceId != null && !resourceId.equals(EMPTY_STRING)) {
             return resourceId;
         } else {
             logger.error("ResourceId is null");
@@ -64,7 +64,7 @@ public class LambdaLogger {
     }
 
     private String checkRequestStage(String stage) {
-        if(stage != null) {
+        if(stage != null && !stage.equals(EMPTY_STRING)) {
             return stage;
         } else {
             logger.error("Stage is null");
@@ -73,21 +73,17 @@ public class LambdaLogger {
     }
 
     private String checkSessionId(String sessionId) {
-        if(sessionId == null || sessionId.equals("")) {
-            sessionId = generateSessionId();
-        } else if(sessionId.length() != 8){
+        if(sessionId == null || sessionId.equals(EMPTY_STRING)) {
+            sessionId = Session.generateSessionId();
+        } else if(!sessionId.matches("[A-Z]{8}")){
             logger.error("SessionId " + sessionId + " is invalid");
             throw new IllegalArgumentException("SessionId is invalid");
         }
         return sessionId;
     }
 
-    private String generateSessionId() {
-        return RandomStringUtils.randomAlphabetic(8).toUpperCase();
-    }
-
     private String checkFunctionName(String functionName) {
-        if(functionName != null) {
+        if(functionName != null && !functionName.equals(EMPTY_STRING)) {
             return functionName;
         } else {
             logger.error("FunctionName is null");
@@ -96,7 +92,7 @@ public class LambdaLogger {
     }
 
     private String checkFunctionVersion(String functionVersion) {
-        if(functionVersion != null) {
+        if(functionVersion != null && !functionVersion.equals(EMPTY_STRING)) {
             return functionVersion;
         } else {
             logger.error("FunctionName is null");

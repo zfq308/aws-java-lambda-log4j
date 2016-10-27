@@ -5,9 +5,12 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class LambdaLoggerTest {
@@ -15,6 +18,11 @@ public class LambdaLoggerTest {
     private Context context;
     private LambdaLogger lambdaLogger;
     private Logger logger;
+
+    final static String NULL_STRING = "Null";
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void setUp() throws Exception {
@@ -35,6 +43,17 @@ public class LambdaLoggerTest {
         assertEquals(null, MDC.get("SessionId"));
         assertEquals(null, MDC.get("FunctionName"));
         assertEquals(null, MDC.get("FunctionVersion"));
+    }
+
+    @Test
+    public void should_update_MDC_when_api_request_is_empty() throws Exception {
+        lambdaLogger.updateMDC(apiRequest, context);
+        assertEquals(NULL_STRING, MDC.get("ApiId"));
+        assertEquals(NULL_STRING, MDC.get("ResourceId"));
+        assertEquals(NULL_STRING, MDC.get("Stage"));
+        assertTrue(MDC.get("SessionId").toString().matches("[A-Z]{8}"));
+        assertEquals(NULL_STRING, MDC.get("FunctionName"));
+        assertEquals(NULL_STRING, MDC.get("FunctionVersion"));
     }
 
     @Test
@@ -63,6 +82,15 @@ public class LambdaLoggerTest {
         apiRequest.setSessionId("ABCDEFGH");
         lambdaLogger.updateMDC(apiRequest, context);
         assertEquals("ABCDEFGH", MDC.get("SessionId"));
+    }
+
+    @Test
+    public void should_throw_exception_when_session_id_is_invalid() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("SessionId is invalid");
+
+        apiRequest.setSessionId("123");
+        lambdaLogger.updateMDC(apiRequest, context);
     }
 
     @Test
