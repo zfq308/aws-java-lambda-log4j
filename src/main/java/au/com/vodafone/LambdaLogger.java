@@ -74,7 +74,7 @@ public class LambdaLogger {
 
     private String checkSessionId(String sessionId) {
         if(sessionId == null || sessionId.equals(EMPTY_STRING)) {
-            sessionId = Session.generateSessionId();
+            sessionId = SessionHelper.generateSessionId();
         } else if(!sessionId.matches("[A-Z]{8}")){
             logger.error("SessionId " + sessionId + " is invalid");
             throw new IllegalArgumentException("SessionId is invalid");
@@ -99,7 +99,4 @@ public class LambdaLogger {
             return NULL_STRING;
         }
     }
-
-
 }
-

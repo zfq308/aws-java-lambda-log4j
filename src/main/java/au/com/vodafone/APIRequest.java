@@ -5,12 +5,9 @@ public class APIRequest {
     private String resourceId;
     private String stage;
     private String sessionId;
+    private String rawCookie;
 
     public APIRequest() {
-    }
-
-    public APIRequest(String apiId) {
-        this.apiId = apiId;
     }
 
     public String getApiId() {
@@ -45,5 +42,11 @@ public class APIRequest {
         this.sessionId = sessionId;
     }
 
-}
+    public String getRawCookie() {
+        return rawCookie;
+    }
 
+    public void setRawCookie(String rawCookie) {
+        this.rawCookie = rawCookie;
+    }
+}
