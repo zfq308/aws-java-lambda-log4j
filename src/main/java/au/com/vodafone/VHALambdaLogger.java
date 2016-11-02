@@ -4,15 +4,15 @@ import com.amazonaws.services.lambda.runtime.Context;
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
 
-public class LambdaLogger {
+public class VHALambdaLogger {
     private APIRequest apiRequest;
     private Context context;
-    private Logger logger = Logger.getLogger(LambdaLogger.class);
+    private Logger logger = Logger.getLogger(VHALambdaLogger.class);
 
     final static String NULL_STRING = "Null";
     final static String EMPTY_STRING = "";
 
-    public LambdaLogger(Logger logger) {
+    public VHALambdaLogger(Logger logger) {
         this.logger = logger;
     }
 
