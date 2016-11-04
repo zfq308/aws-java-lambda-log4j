@@ -95,7 +95,7 @@ public class VHALambdaLogger {
         if(functionVersion != null && !functionVersion.equals(EMPTY_STRING)) {
             return functionVersion;
         } else {
-            logger.error("FunctionName is null");
+            logger.error("FunctionVersion is null");
             return NULL_STRING;
         }
     }
@@ -110,6 +110,6 @@ public class VHALambdaLogger {
     }
 
     public void warn(String s) {
-        this.logger.warn(s);
+        this.logger.warn(s) ;
     }
 }
