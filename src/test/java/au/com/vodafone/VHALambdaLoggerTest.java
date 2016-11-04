@@ -107,6 +107,24 @@ public class VHALambdaLoggerTest {
         assertEquals("TEST_FUNCTION_VERSION", MDC.get("FunctionVersion"));
     }
 
+    @Test
+    public void should_log_by_info() throws Exception{
+        VHALambdaLogger.info("Log information");
+        verify(logger).info("Log information");
+    }
+
+    @Test
+    public void should_log_by_error() throws Exception{
+        VHALambdaLogger.error("Log information");
+        verify(logger).error("Log information");
+    }
+
+    @Test
+    public void should_log_by_warning() throws Exception{
+        VHALambdaLogger.warn("Log information");
+        verify(logger).warn("Log information");
+    }
+
     @After
     public void tearDown() throws Exception {
         MDC.clear();

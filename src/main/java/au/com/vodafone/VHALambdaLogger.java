@@ -99,4 +99,17 @@ public class VHALambdaLogger {
             return NULL_STRING;
         }
     }
+
+    public void info(String s) {
+        this.logger.info(s);
+    }
+
+
+    public void error(String s) {
+        this.logger.error(s);
+    }
+
+    public void warn(String s) {
+        this.logger.warn(s);
+    }
 }
